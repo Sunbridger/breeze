@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Start Cluster
+SERVER_NAME='breeze'
+
+./node_modules/.bin/egg-scripts start --daemon --stdout=$(pwd)/logs/master-stdout.log --stderr=$(pwd)/logs/master-stderr.log --title=$SERVER_NAME
+
+# Get PID
+pid=$(ps -eo 'pid,command' | grep 'start-cluster' | grep $SERVER_NAME  | awk '{print $1}')
+
+# Write PID to file
+echo $pid > $(pwd)/run/master.pid

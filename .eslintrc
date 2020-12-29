@@ -1,0 +1,14 @@
+{
+  "extends": "eslint-config-egg",
+  "parser": "typescript-eslint-parser",
+  "plugins": [
+      "typescript"
+  ],
+  "parserOptions": {
+      "sourceType": "module"
+  },
+  "rules": {
+      "indent": ["warn", 4],
+      "typescript/no-unused-vars": "warn"
+  }
+}

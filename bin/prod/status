@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+/**
+ * plusman created at 2017-12-13 20:25:33
+ *
+ * Copyright (c) 2017 Souche.com, all rights
+ * reserved
+ */
+'use strict';
+
+const fs = require('fs-extra');
+const path = require('path');
+
+const isRunning = require('is-running');
+
+const pidFile = path.join(__dirname, '../../run', 'master.pid');
+
+// 判断文件以及进程在不在
+let pid;
+
+let exitStatus = false;
+
+try {
+  if (fs.existsSync(pidFile)) {
+    pid = parseInt(fs.readFileSync(pidFile, { encoding: 'utf8' }));
+  } else {
+    console.error('stopped');
+    exitStatus = true;
+  }
+} catch (e) {
+  console.error('stopped');
+  exitStatus = true;
+}
+
+if (!exitStatus) {
+  if (isRunning(pid)) {
+    console.log('running');
+  } else {
+    console.log('stopped');
+  }
+}
